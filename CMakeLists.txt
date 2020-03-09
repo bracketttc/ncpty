@@ -3,7 +3,11 @@
 
 cmake_minimum_required( VERSION 3.1 )
 
-project( banner )
+project( ncpty
+    VERSION "0.1.0"
+    DESCRIPTION "An NCurses pseudoterminal library"
+    HOMEPAGE_URL "https://gitlab.com/bracketttc/ncpty"
+    )
 
 find_package( Bison REQUIRED )
 find_package( Curses REQUIRED )
@@ -12,3 +16,14 @@ find_package( Curses REQUIRED )
 
 add_subdirectory( src/bin )
 add_subdirectory( src/lib )
+
+option( BUILD_DOCUMENTATION "" ON )
+if( BUILD_DOCUMENTATION)
+    find_package( Doxygen
+        REQUIRED dot
+        )
+    doxygen_add_docs( docs
+        include
+        src
+        )
+endif()
