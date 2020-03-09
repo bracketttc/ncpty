@@ -6,7 +6,7 @@ set( NCPTY_SRCS
     ncpty.c
     )
 
-add_library( ncpty-object OBJECT ${CURSES_PTY_SRCS} )
+add_library( ncpty-object OBJECT ${NCPTY_SRCS} )
 target_include_directories( ncpty-object PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../include )
 
 # C Shared library
