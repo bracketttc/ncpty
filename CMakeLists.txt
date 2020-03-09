@@ -1,3 +1,6 @@
+# Copyright (c) 2020 Timothy Brackett
+# Licensed under the MIT license
+
 cmake_minimum_required( VERSION 3.1 )
 
 project( banner )

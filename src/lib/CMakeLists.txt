@@ -1,3 +1,6 @@
+# Copyright (c) 2020 Timothy Brackett
+# Licensed under the MIT license
+
 # C library sources
 set( NCPTY_SRCS
     ncpty.c

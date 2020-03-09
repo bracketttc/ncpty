@@ -1,3 +1,8 @@
+<!--
+Copyright (c) 2020 Timothy Brackett
+Licensed under the MIT license
+-->
+
 # Changelog
 All notable changes to this projecdt will be documented in this file.
 
