@@ -1,0 +1,12 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+includedir=${prefix}/include
+libdir=${prefix}/lib
+
+Name: @CMAKE_PROJECT_NAME@
+Description: @CMAKE_PROJECT_DESCRIPTION@
+Version: @CMAKE_PROJECT_VERSION@
+URL: @CMAKE_PROJECT_HOMEPAGE_URL@
+Requires: panel
+Requires.private: vterm
+Cflags: -I${includedir}
+Libs: -L${libdir} -lncpty

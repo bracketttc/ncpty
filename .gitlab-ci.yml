@@ -1,0 +1,10 @@
+image: gcc
+
+build:
+    stage: build
+
+    before_script:
+        - 'apt-get update && apt-get install -y cmake cmake-data libncurses-dev libvterm-dev'
+
+    script:
+        - 'mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE:String=Release && make'
