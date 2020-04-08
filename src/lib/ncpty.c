@@ -7,37 +7,36 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/ioctl.h>
 #include <termios.h>
 #include <unistd.h>
 
-#include <sys/ioctl.h>
-
 int ncpty_execvp( struct ncpty_t** pty, const char* file, char* const argv[] )
 {
-    *pty = (struct ncpty_t*) malloc(sizeof(struct ncpty_t));
+    *pty = (struct ncpty_t*)malloc( sizeof( struct ncpty_t ) );
 
     // open a pseudoterminal, get master side file descriptor
-    (*pty)->fd = posix_openpt( O_RDWR );
-    if ( (*pty)->fd < 0 )
+    ( *pty )->fd = posix_openpt( O_RDWR );
+    if ( ( *pty )->fd < 0 )
     {
         fprintf( stderr, "error: Unable to open pty\n" );
         return -1;
     }
 
-    if ( grantpt( (*pty)->fd ) != 0 )
+    if ( grantpt( ( *pty )->fd ) != 0 )
     {
         fprintf( stderr, "error: Unable to grant pty\n" );
         return -1;
     }
 
-    if ( unlockpt( (*pty)->fd ) != 0 )
+    if ( unlockpt( ( *pty )->fd ) != 0 )
     {
         fprintf( stderr, "error: Unable to unlock pty\n" );
         return -1;
     }
 
     // open child side file descriptor of pseudoterminal
-    int fd_child = open( ptsname( (*pty)->fd ), O_RDWR );
+    int fd_child = open( ptsname( ( *pty )->fd ), O_RDWR );
 
     if ( fork() )
     {
@@ -47,7 +46,7 @@ int ncpty_execvp( struct ncpty_t** pty, const char* file, char* const argv[] )
     else
     {
         // child-side
-        close( (*pty)->fd );
+        close( ( *pty )->fd );
 
         struct termios old_term_settings;
         tcgetattr( fd_child, &old_term_settings );
