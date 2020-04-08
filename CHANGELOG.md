@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog][changelog], and this project adheres t
 
 ## [Unreleased]
 ### Added
+- Preliminary work on API and demonstration/test program, `banner`
 - Basic repo structure.
 
 <!-- Links -->
