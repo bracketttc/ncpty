@@ -19,8 +19,12 @@ find_package( PkgConfig REQUIRED )
 pkg_check_modules( panel REQUIRED IMPORTED_TARGET panel )
 pkg_check_modules( vterm REQUIRED IMPORTED_TARGET vterm )
 
+set( CMAKE_POSITION_INDEPENDENT_CODE ON )
+
 # Insert stuff here
-set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -pedantic -Werror=implicit-function-declaration -fPIC" )
+set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -pedantic -Werror=implicit-function-declaration" )
+
+# Analysis
 find_program( CPPCHECK "cppcheck" )
 if( CPPCHECK )
     set( CMAKE_C_CPPCHECK ${CPPCHECK} )
