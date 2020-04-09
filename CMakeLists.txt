@@ -33,7 +33,7 @@ else()
 endif()
 
 # options
-option( NCPTY_TEST "Build test code" ON )
+option( NCPTY_TEST "Build test code" OFF )
 if( NCPTY_TEST )
     enable_testing()
     set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ftest-coverage -fprofile-arcs" )
