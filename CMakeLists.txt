@@ -32,6 +32,13 @@ else()
     unset( CPPCHECK )
 endif()
 
+# options
+option( NCPTY_TEST "Build test code" ON )
+if( NCPTY_TEST )
+    enable_testing()
+    set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ftest-coverage -fprofile-arcs" )
+endif()
+
 install( DIRECTORY include/
     DESTINATION include
     COMPONENT devel
@@ -39,6 +46,9 @@ install( DIRECTORY include/
 
 add_subdirectory( src/bin )
 add_subdirectory( src/lib )
+if( NCPTY_TEST )
+    add_subdirectory( src/test )
+endif()
 
 configure_file( ncpty.pc.in
     ${CMAKE_BINARY_DIR}/ncpty.pc
