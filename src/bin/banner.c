@@ -53,6 +53,11 @@ int main( int argc, char** argv )
 
     // open slave side file descriptor of pseudoterminal
     int fd_slave = open( ptsname( fd_master ), O_RDWR );
+    if ( fd_slave < 0 )
+    {
+        fprintf( stderr, "error: Unable to get slave pty\n" );
+        exit( 2 );
+    }
 
     if ( fork() )
     {

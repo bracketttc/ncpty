@@ -37,6 +37,11 @@ int ncpty_execvp( struct ncpty_t** pty, const char* file, char* const argv[] )
 
     // open child side file descriptor of pseudoterminal
     int fd_child = open( ptsname( ( *pty )->fd ), O_RDWR );
+    if ( fd_child < 0 )
+    {
+        fprintf( stderr, "error: Unable to open child pty\n" );
+        return -1;
+    }
 
     if ( fork() )
     {
