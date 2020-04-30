@@ -9,6 +9,9 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 
 void print_usage( const char* name )
@@ -23,6 +26,16 @@ int main( int argc, char** argv )
     {
         print_usage( argv[0] );
         exit( 1 );
+    }
+
+    /* ensure banner executable does not have either the set-user-ID bit or the
+     * set-group-ID bit set. */
+    struct stat statbuf = { 0 };
+    if ( 0 != stat( argv[0], &statbuf )
+         || ( S_ISUID | S_ISGID ) & statbuf.st_mode )
+    {
+        fprintf( stderr, "error: this executable cannot be suid or sgid\n" );
+        exit( 4 );
     }
 
     struct ncpty_t* pty = NULL;
