@@ -17,6 +17,7 @@
 typedef struct ncpty_t
 {
     int     fd;     ///< File descriptor for master-side of pseudoterminal
+    pid_t   pid;    ///< Process id
     VTerm*  vt;     ///< Virtual terminal pointer
     PANEL*  panel;  ///< ncurses panel
     WINDOW* window; ///< ncurses window
@@ -35,6 +36,12 @@ typedef struct ncpty_t
 /// specific error encountered.
 int ncpty_execvp( struct ncpty_t** pty, const char* file, char* const argv[] );
 
+/// @brief Check if child process controlled by ncpty object has exited.
+///
+/// @param[in] pty ncpty object
+/// @param[out] exit_code
+/// @returns @c true if process is still running, @c false otherwise
+bool ncpty_status( struct ncpty_t* pty, int* exit_code );
 
 /// @brief Deallocate an ncpty object.
 ///

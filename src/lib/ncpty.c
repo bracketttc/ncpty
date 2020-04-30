@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/ioctl.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include <termios.h>
 #include <unistd.h>
 
@@ -75,6 +77,29 @@ int ncpty_execvp( struct ncpty_t** pty, const char* file, char* const argv[] )
         return execvp( file, argv );
     }
     return 0;
+}
+
+
+bool ncpty_status( struct ncpty_t* pty, int* exit_code )
+{
+    if ( !pty )
+    {
+        *exit_code = -1;
+        return false;
+    }
+
+    siginfo_t siginfo = { 0 };
+    if ( 0 == waitid( P_PID, pty->pid, &siginfo, WEXITED | WNOHANG | WNOWAIT )
+         && siginfo.si_pid == pty->pid )
+    {
+        if ( exit_code )
+        {
+            *exit_code = siginfo.si_status;
+        }
+        return false;
+    }
+
+    return true;
 }
 
 
