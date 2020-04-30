@@ -8,6 +8,17 @@ set_tests_properties( banner_usage
     PROPERTIES WILL_FAIL TRUE
     )
 
+add_test( NAME banner_true
+    COMMAND banner true
+    )
+
+add_test( NAME banner_false
+    COMMAND banner false
+    )
+set_tests_properties( banner_false
+    PROPERTIES WILL_FAIL TRUE
+    )
+
 find_program( GCOV gcov REQUIRED )
 
 add_custom_target( coverage
