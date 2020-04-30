@@ -76,3 +76,18 @@ int ncpty_execvp( struct ncpty_t** pty, const char* file, char* const argv[] )
     }
     return 0;
 }
+
+
+void ncpty_free( struct ncpty_t** pty )
+{
+    if ( !pty || !*pty )
+    {
+        return;
+    }
+
+    close( ( *pty )->fd );
+    //vterm_free( ( *pty )->vt );
+
+    free( *pty );
+    *pty = NULL;
+}

@@ -36,4 +36,9 @@ typedef struct ncpty_t
 int ncpty_execvp( struct ncpty_t** pty, const char* file, char* const argv[] );
 
 
+/// @brief Deallocate an ncpty object.
+///
+/// @param[in] pty ncpty object to free
+void ncpty_free( struct ncpty_t** pty );
+
 #endif // NCPTY_H_INCLUDED
