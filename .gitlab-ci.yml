@@ -19,8 +19,7 @@ build_test:
         - 'apt-get update && apt-get install -y cmake cmake-data curl libncurses-dev libvterm-dev doxygen graphviz'
 
     script:
-        - 'mkdir build_test && cd build_test && cmake .. -DCMAKE_BUILD_TYPE:String=Debug -DNCPTY_TEST:Bool=ON && make && make test && make coverage && find .. -name \*.gcov'
-        - 'find .. -name \*.gcov'
+        - 'mkdir build_test && cd build_test && cmake .. -DCMAKE_BUILD_TYPE:String=Debug -DNCPTY_TEST:Bool=ON && make && make test && make coverage'
 
     after_script:
         - 'bash <(curl -s https://codecov.io/bash) -t ca4ecbd3-76f2-420b-9f67-3e915679df5c -f *.gcov -p $(pwd)'
