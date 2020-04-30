@@ -87,7 +87,10 @@ bool ncpty_status( struct ncpty_t* pty, int* exit_code )
 {
     if ( !pty )
     {
-        *exit_code = -1;
+        if ( exit_code )
+        {
+            *exit_code = -1;
+        }
         return false;
     }
 
