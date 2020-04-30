@@ -10,6 +10,9 @@ project( ncpty
     LANGUAGES C
     )
 
+set( CMAKE_C_STANDARD 11 )
+set( CMAKE_C_STANDARD_REQUIRED ON )
+
 # Get dependencies
 set( CURSES_NEED_NCURSES TRUE )
 mark_as_advanced( CURSES_NEED_NCURSES )
@@ -22,7 +25,7 @@ pkg_check_modules( vterm REQUIRED IMPORTED_TARGET vterm )
 set( CMAKE_POSITION_INDEPENDENT_CODE ON )
 
 # Insert stuff here
-set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -pedantic -Werror=implicit-function-declaration" )
+set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ansi -Wall -Wextra -pedantic -Werror=implicit-function-declaration" )
 
 # Analysis
 find_program( CPPCHECK "cppcheck" )
