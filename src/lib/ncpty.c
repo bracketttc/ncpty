@@ -45,10 +45,13 @@ int ncpty_execvp( struct ncpty_t** pty, const char* file, char* const argv[] )
         return -1;
     }
 
-    if ( fork() )
+    pid_t pid = fork();
+    if ( pid )
     {
         // parent-side
         close( fd_child );
+
+        ( *pty )->pid = pid;
     }
     else
     {
