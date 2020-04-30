@@ -114,7 +114,7 @@ void ncpty_free( struct ncpty_t** pty )
     }
 
     close( ( *pty )->fd );
-    //vterm_free( ( *pty )->vt );
+    // vterm_free( ( *pty )->vt );
 
     free( *pty );
     *pty = NULL;

@@ -50,11 +50,11 @@ int main( int argc, char** argv )
     int height = LINES;
     int width  = COLS;
 
-    //VTerm* vt = vterm_new( height - 2, width );
+    // VTerm* vt = vterm_new( height - 2, width );
 
     // create a window to be used for pty
-    WINDOW* pty_win   = newwin( height - 2, width, 1, 0 );
-    //PANEL*  pty_panel = new_panel( pty_win );
+    WINDOW* pty_win = newwin( height - 2, width, 1, 0 );
+    // PANEL*  pty_panel = new_panel( pty_win );
 
     // format banner
     const char caption[] = "UNCLASSIFIED";
@@ -71,7 +71,7 @@ int main( int argc, char** argv )
     mvprintw( height - 1, ( width - len ) / 2, "%s", caption );
     attroff( COLOR_PAIR( 1 ) );
 
-    //wprintw( pty_win, ptsname( fd_master ) );
+    // wprintw( pty_win, ptsname( fd_master ) );
 
     // loop
     int exit_code = 0;
@@ -95,7 +95,7 @@ int main( int argc, char** argv )
         {
             break;
         }
-        //vterm_keyboard_unichar( vt, c, VTERM_MOD_NONE );
+        // vterm_keyboard_unichar( vt, c, VTERM_MOD_NONE );
     } while ( true );
 
     ncpty_free( &pty );
