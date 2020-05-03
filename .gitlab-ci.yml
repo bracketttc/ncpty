@@ -4,6 +4,9 @@
 before_script:
     - 'apt-get update && apt-get install -y cmake cmake-data curl libncurses-dev libvterm-dev doxygen graphviz tmux'
 
+include:
+    - template: SAST.gitlab-ci.yml
+
 build:
     image: gcc:latest
     stage: build
