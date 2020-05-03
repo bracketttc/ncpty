@@ -1,22 +1,19 @@
 # Copyright (c) 2020 Timothy Brackett
 # Licensed under the MIT license
 
-image: gcc
+before_script:
+    - 'apt-get update && apt-get install -y cmake cmake-data curl libncurses-dev libvterm-dev doxygen graphviz tmux'
 
 build:
+    image: gcc:latest
     stage: build
-
-    before_script:
-        - 'apt-get update && apt-get install -y cmake cmake-data libncurses-dev libvterm-dev doxygen graphviz'
 
     script:
         - 'mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE:String=Release && make'
 
 build_test:
+    image: gcc:latest
     stage: test
-
-    before_script:
-        - 'apt-get update && apt-get install -y cmake cmake-data curl libncurses-dev libvterm-dev doxygen graphviz tmux'
 
     script:
         - 'mkdir build_test && cd build_test && cmake .. -DCMAKE_BUILD_TYPE:String=Debug -DNCPTY_TEST:Bool=ON && make && ../run_in_tmux.sh make test && make coverage'
@@ -24,7 +21,12 @@ build_test:
     after_script:
         - 'bash <(curl -s https://codecov.io/bash) -t ca4ecbd3-76f2-420b-9f67-3e915679df5c -f *.gcov -p $(pwd)'
 
-    artifacts:
-        untracked: true
-        paths:
-            - '*.gcov'
+coverity:
+    image: bracketttc/ncpty/coverity:latest
+    stage: test
+
+    script:
+        - 'mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE:String=Release && cov-build --dir cov-int make'
+
+    after_script:
+        - 'curl --form token=${COVERITY_TOKEN} --form email=brackett.tc@gmail.com --form file=@ncpty.tbz --form version=$(grep CMAKE_PROJECT_VERSION:STATIC  -r | cut -d = -f 2 | tail -n 1)-$(git rev-parse --short=8 HEAD) --form description="" https://scan.coverity.com/builds?project=bracketttc%2Fncpty'
