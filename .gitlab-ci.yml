@@ -26,7 +26,7 @@ coverity:
     stage: test
 
     script:
-        - 'mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE:String=Release && cov-build --dir cov-int make'
+        - 'mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE:String=Release && cov-build --dir cov-int make && tar -jcf ncpty.tbz cov-int'
 
     after_script:
-        - 'curl --form token=${COVERITY_TOKEN} --form email=brackett.tc@gmail.com --form file=@ncpty.tbz --form version=$(grep CMAKE_PROJECT_VERSION:STATIC  -r | cut -d = -f 2 | tail -n 1)-$(git rev-parse --short=8 HEAD) --form description="" https://scan.coverity.com/builds?project=bracketttc%2Fncpty'
+        - 'cd build && curl --form token=${COVERITY_TOKEN} --form email=brackett.tc@gmail.com --form file=@ncpty.tbz --form version=$(grep CMAKE_PROJECT_VERSION:STATIC  -r | cut -d = -f 2 | tail -n 1)-$(git rev-parse --short=8 HEAD) --form description="" https://scan.coverity.com/builds?project=bracketttc%2Fncpty'
