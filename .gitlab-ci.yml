@@ -22,7 +22,7 @@ build_test:
         - 'bash <(curl -s https://codecov.io/bash) -t ca4ecbd3-76f2-420b-9f67-3e915679df5c -f *.gcov -p $(pwd)'
 
 coverity:
-    image: bracketttc/ncpty/coverity:latest
+    image: registry.gitlab.com/bracketttc/ncpty/coverity:latest
     stage: test
 
     script:
