@@ -30,6 +30,10 @@ set( CMAKE_POSITION_INDEPENDENT_CODE ON )
 # C flags
 string( APPEND CMAKE_C_FLAGS " -ansi -Wall -Wextra -pedantic -Werror=implicit-function-declaration" )
 
+# Security-enhancing flags
+string( APPEND CMAKE_C_FLAGS " --stack-protector-strong -D_FORTIFY_SOURCE=2 -Wl,-z,relro -Wl,-z,now" )
+string( APPEND CMAKE_EXE_LINKER_FLAGS " -pie" )
+
 # Analysis
 find_program( CPPCHECK "cppcheck" )
 if( CPPCHECK )
