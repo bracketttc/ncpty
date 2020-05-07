@@ -9,7 +9,7 @@ Licensed under the MIT license
 [![Gitlab][pipeline]][home]
 [![codecov.io][codecov-badge]][codecov]
 [![Coverity][coverity-badge]][coverity]
-[![LGTM][lgtm-alerts-badge]][gtm-alerts]
+[![LGTM][lgtm-alerts-badge]][lgtm-alerts]
 [![LGTM][lgtm-quality-badge]][lgtm-quality]
 [![MIT License][license-badge]][license]
 [![readthedocs][readthedocs-badge]][readthedocs]
