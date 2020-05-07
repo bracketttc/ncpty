@@ -5,10 +5,16 @@
 
 import subprocess, os
 
+# sphinx-build variables
+project = "ncpty"
+author = "Timothy Brackett"
+copyright = "2020, Timothy Brackett"
 extensions = ["breathe"]
 breathe_projects = {"ncpty": "../build/xml"}
 breathe_default_project = "ncpty"
 
+
+# readthedocs.io build process
 read_the_docs_build = os.environ.get("READTHEDOCS", None) == "True"
 if read_the_docs_build:
     subprocess.call(
