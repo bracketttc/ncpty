@@ -14,14 +14,16 @@ set( CMAKE_C_STANDARD 11 )
 set( CMAKE_C_STANDARD_REQUIRED ON )
 set( CMAKE_C_EXTENSIONS OFF )
 
-# Get dependencies
-set( CURSES_NEED_NCURSES TRUE )
-mark_as_advanced( CURSES_NEED_NCURSES )
-find_package( Curses REQUIRED )
+if( NOT DOC_ONLY_BUILD )
+    # Get dependencies
+    set( CURSES_NEED_NCURSES TRUE )
+    mark_as_advanced( CURSES_NEED_NCURSES )
+    find_package( Curses REQUIRED )
 
-find_package( PkgConfig REQUIRED )
-pkg_check_modules( panel REQUIRED IMPORTED_TARGET panel )
-pkg_check_modules( vterm REQUIRED IMPORTED_TARGET vterm )
+    find_package( PkgConfig REQUIRED )
+    pkg_check_modules( panel REQUIRED IMPORTED_TARGET panel )
+    pkg_check_modules( vterm REQUIRED IMPORTED_TARGET vterm )
+endif()
 
 set( CMAKE_POSITION_INDEPENDENT_CODE ON )
 
@@ -48,10 +50,12 @@ install( DIRECTORY include/
     COMPONENT devel
     )
 
-add_subdirectory( src/bin )
-add_subdirectory( src/lib )
-if( NCPTY_TEST )
-    add_subdirectory( src/test )
+if( NOT DOC_ONLY_BUILD )
+    add_subdirectory( src/bin )
+    add_subdirectory( src/lib )
+    if( NCPTY_TEST )
+        add_subdirectory( src/test )
+    endif()
 endif()
 
 configure_file( ncpty.pc.in

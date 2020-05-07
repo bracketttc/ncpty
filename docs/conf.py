@@ -12,5 +12,6 @@ breathe_default_project = "ncpty"
 read_the_docs_build = os.environ.get("READTHEDOCS", None) == "True"
 if read_the_docs_build:
     subprocess.call(
-        "cd .. && mkdir -p build && cd build && cmake .. && make doc", shell=True
+        "cd .. && mkdir -p build && cd build && cmake .. -DDOC_ONLY_BUILD:Bool=True && make doc",
+        shell=True,
     )
