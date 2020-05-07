@@ -69,6 +69,7 @@ if( BUILD_DOCUMENTATION)
         REQUIRED dot
         )
     set( DOXYGEN_GENERATE_HTML YES )
+    set( DOXYGEN_GENERATE_XML YES )
     set( DOXYGEN_GENERATE_MAN YES )
     mark_as_advanced( DOXYGEN_GENERATE_MAN )
     doxygen_add_docs( doc
