@@ -30,6 +30,19 @@ add_test( NAME banner_sleep
     COMMAND banner sleep 1
     )
 
+
+add_executable( ncpty_test ncpty_test.c )
+target_include_directories( ncpty_test
+    PRIVATE
+    ${PROJECT_SOURCE_DIR}/deps/greatest
+    ${PROJECT_SOURCE_DIR}/include
+    )
+target_link_libraries( ncpty_test PRIVATE ncpty )
+
+add_test( NAME ncpty_test
+    COMMAND ncpty_test
+    )
+
 find_program( GCOV gcov REQUIRED )
 
 add_custom_target( coverage
