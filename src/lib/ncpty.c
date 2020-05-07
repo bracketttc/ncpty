@@ -8,10 +8,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/ioctl.h>
-#include <sys/types.h>
 #include <sys/wait.h>
 #include <termios.h>
 #include <unistd.h>
+
 
 int ncpty_execvp( struct ncpty_t** pty, const char* file, char* const argv[] )
 {

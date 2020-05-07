@@ -9,6 +9,7 @@
 
 #include <ncurses.h>
 #include <panel.h>
+#include <sys/types.h>
 #include <vterm.h>
 
 // Need to define a clear and concise API for dealing with creating a pty and
