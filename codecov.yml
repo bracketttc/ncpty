@@ -1,0 +1,9 @@
+# Copyright (c) 2020 Timothy Brackett
+# Licensed under the MIT license
+
+coverage:
+    range: "80...100"
+
+ignore:
+    - "src/test"
+    - "deps"
