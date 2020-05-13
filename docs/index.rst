@@ -1,5 +1,5 @@
-ncty
-####
+ncpty
+#####
 
 An NCurses pseudoterminal library.
 
