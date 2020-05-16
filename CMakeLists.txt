@@ -14,6 +14,7 @@ set( CMAKE_C_STANDARD 11 )
 set( CMAKE_C_STANDARD_REQUIRED ON )
 set( CMAKE_C_EXTENSIONS OFF )
 
+option( DOC_ONLY_BUILD "Only build documentation (for readthedocs)" OFF )
 if( NOT DOC_ONLY_BUILD )
     # Get dependencies
     set( CURSES_NEED_NCURSES TRUE )
@@ -71,7 +72,7 @@ install( FILES ${CMAKE_BINARY_DIR}/ncpty.pc
     COMPONENT devel
     )
 
-option( BUILD_DOCUMENTATION "" ON )
+option( BUILD_DOCUMENTATION "Generate Doxygen documentation" ON )
 if( BUILD_DOCUMENTATION)
     find_package( Doxygen
         REQUIRED dot
