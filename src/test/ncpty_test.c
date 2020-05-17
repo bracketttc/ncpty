@@ -17,6 +17,8 @@ TEST invalid_status_tests( void )
 }
 
 
+// This test does not report failure, but provides coverage of a path
+// that would otherwise result in memory corruption.
 TEST invalid_free_test( void )
 {
     ncpty_free( NULL );
