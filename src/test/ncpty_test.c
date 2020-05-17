@@ -36,8 +36,12 @@ int main( int argc, char** argv )
 {
     GREATEST_MAIN_BEGIN();
 
-    RUN_TEST( invalid_status_tests );
-    RUN_TEST( invalid_free_test );
+    int seed = rand();
+
+    SHUFFLE_TESTS( seed, {
+        RUN_TEST( invalid_status_tests );
+        RUN_TEST( invalid_free_test );
+        } );
 
     GREATEST_MAIN_END();
 }
