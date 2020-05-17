@@ -41,8 +41,8 @@ Main points:
 <!-- Links -->
 [chris-beams]: https://chris.beams.io/posts/git-commit/
 [clang-format]: https://clang.llvm.org/docs/ClangFormat.html
-[issues]: https://gitlab.com/bracketttc/ncpty/
+[issues]: https://gitlab.com/bracketttc/ncpty/-/issues
 [MIT license]: LICENSE.md
-[pull requests]: https://gitlab.com/bracketttc/ncpty/
+[pull requests]: https://gitlab.com/bracketttc/ncpty/-/merge_requests
 [home]: https://gitlab.com/bracketttc/ncpty
 [gitter]: https://gitter.im/bracketttc-ncpty/community
