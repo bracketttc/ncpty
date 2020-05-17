@@ -8,6 +8,17 @@ set_tests_properties( banner_usage
     PROPERTIES WILL_FAIL TRUE
     )
 
+add_test( NAME banner_suid
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/banner_perm_test.sh banner
+    )
+set_tests_properties( banner_suid
+    PROPERTIES WILL_FAIL TRUE
+    )
+
+add_test( NAME banner_interaction
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/banner_interaction_test.sh banner
+    )
+
 add_test( NAME banner_true
     COMMAND banner true
     )
