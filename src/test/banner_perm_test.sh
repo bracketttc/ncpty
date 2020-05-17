@@ -2,7 +2,7 @@
 
 # Add suid
 chmod +s "$1"
-$@
+$@ true
 
 exit_code=$?
 
