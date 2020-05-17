@@ -16,10 +16,14 @@ target_include_directories( ncpty-shared
     PUBLIC
     ${PROJECT_SOURCE_DIR}/include
     ${CURSES_INCLUDE_DIRS}
+    ${panel_INCLUDE_DIRS}
+    ${vterm_INCLUDE_DIRS}
     )
 target_link_libraries( ncpty-shared
     PUBLIC
     ${CURSES_LIBRARIES}
+    ${panel_LINK_LIBRARIES}
+    ${vterm_LINK_LIBRARIES}
     )
 set_target_properties( ncpty-shared PROPERTIES OUTPUT_NAME "ncpty" )
 add_library( ncpty ALIAS ncpty-shared )
