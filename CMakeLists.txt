@@ -46,9 +46,14 @@ endif()
 
 # options
 option( NCPTY_TEST "Build test code" OFF )
+option( TEST_COVERAGE "Build with gcov instrumentation to evaluate test coverage" OFF )
 if( NCPTY_TEST )
+    include( CTest )
     enable_testing()
-    set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ftest-coverage -fprofile-arcs" )
+
+    if( TEST_COVERAGE )
+        set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ftest-coverage -fprofile-arcs" )
+    endif()
 endif()
 
 install( DIRECTORY include/
