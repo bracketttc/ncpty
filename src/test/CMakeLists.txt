@@ -9,14 +9,14 @@ set_tests_properties( banner_usage
     )
 
 add_test( NAME banner_suid
-    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/banner_perm_test.sh banner
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/banner_perm_test.sh $<TARGET_FILE:banner>
     )
 set_tests_properties( banner_suid
     PROPERTIES WILL_FAIL TRUE
     )
 
 add_test( NAME banner_interaction
-    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/banner_interaction_test.sh banner
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/banner_interaction_test.sh $<TARGET_FILE:banner>
     )
 
 add_test( NAME banner_true
