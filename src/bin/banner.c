@@ -38,15 +38,12 @@ int main( int argc, char** argv )
         exit( 4 );
     }
 
-    struct ncpty_t* pty = NULL;
-    if ( ncpty_execvp( &pty, argv[1], argv + 1 ) )
+    // initialize ncurses
+    if ( !initscr() )
     {
-        fprintf( stderr, "error: Unable to create ncpty\n" );
-        exit( 3 );
+        // failed to initialize ncurses
     }
 
-    // initialize ncurses
-    initscr();
     if ( has_colors() )
     {
         start_color();
@@ -55,6 +52,7 @@ int main( int argc, char** argv )
             // recreate tmux' color table
         }
     }
+
     raw();
     noecho();
     keypad( stdscr, TRUE );
@@ -63,11 +61,34 @@ int main( int argc, char** argv )
     int height = LINES;
     int width  = COLS;
 
-    // VTerm* vt = vterm_new( height - 2, width );
-
     // create a window to be used for pty
     WINDOW* pty_win = newwin( height - 2, width, 1, 0 );
-    // PANEL*  pty_panel = new_panel( pty_win );
+    if ( !pty_win )
+    {
+        // shutdown ncurses
+    }
+
+    PANEL* pty_panel = new_panel( pty_win );
+    if ( !pty_panel )
+    {
+        // shutdown ncurses
+    }
+
+    // create ncpty object with panel
+    struct ncpty_t* pty = ncpty_new( pty_panel );
+    if ( !pty )
+    {
+        // shutdown ncurses
+    }
+    // pty_win is potentially invalid after ncpty_new call
+    pty_win = NULL;
+
+    if ( 0 != ncpty_execvp( pty, argv[1], argv + 1 ) )
+    {
+        fprintf( stderr, "error: Unable to create ncpty\n" );
+        // shutdown ncurses
+        exit( 3 );
+    }
 
     // format banner
     const char caption[] = "UNCLASSIFIED";
@@ -83,8 +104,6 @@ int main( int argc, char** argv )
     clrtoeol();
     mvprintw( height - 1, ( width - len ) / 2, "%s", caption );
     attroff( COLOR_PAIR( 1 ) );
-
-    // wprintw( pty_win, ptsname( fd_master ) );
 
     // loop
     int exit_code = 0;
@@ -111,7 +130,14 @@ int main( int argc, char** argv )
         // vterm_keyboard_unichar( vt, c, VTERM_MOD_NONE );
     } while ( true );
 
-    ncpty_free( &pty );
+    ncpty_free( pty );
+    pty = NULL;
+
+    del_panel( pty_panel );
+    pty_panel = NULL;
+
+    delwin( pty_win );
+    pty_win = NULL;
 
     endwin();
 
