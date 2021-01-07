@@ -5,14 +5,13 @@
 /// Simple example of ncpty use that wraps a terminal in header and footer
 /// banners.
 
-#include "ncpty.h"
-
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
 
+#include "ncpty.h"
 
 void print_usage( const char* name )
 {
