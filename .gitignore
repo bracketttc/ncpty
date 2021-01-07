@@ -1,6 +1,7 @@
 # Copyright (c) Timothy Brackett
 # Licensed under the MIT license
 
+/.ccls-cache
 /.vagrant
 /build
 *.gcov
