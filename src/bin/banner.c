@@ -29,9 +29,7 @@ int main( int argc, char** argv )
 
     /* ensure banner executable does not have either the set-user-ID bit or the
      * set-group-ID bit set. */
-    struct stat statbuf = { 0 };
-    if ( 0 != stat( argv[0], &statbuf )
-         || ( S_ISUID | S_ISGID ) & statbuf.st_mode )
+    if ( getuid() != geteuid() || getgid() != getegid() )
     {
         fprintf( stderr, "error: this executable cannot be suid or sgid\n" );
         exit( 4 );
