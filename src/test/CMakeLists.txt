@@ -1,9 +1,50 @@
 # Copyright (c) 2020 Timothy Brackett
 # Licensed under the MIT license
 
-add_test( NAME banner_test
-    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/banner_test.sh $<TARGET_FILE:banner>
+# Tests
+add_test( NAME banner_suid
+    COMMAND banner /bin/bash
     )
+set_tests_properties( banner_suid
+    PROPERTIES
+    TIMEOUT 1
+    WILL_FAIL TRUE
+    DISABLED TRUE
+    )
+add_test( NAME banner_sgid
+    COMMAND banner /bin/bash
+    )
+set_tests_properties( banner_sgid
+    PROPERTIES
+    TIMEOUT 1
+    WILL_FAIL TRUE
+    DISABLED TRUE
+    )
+
+add_test( NAME banner_usage
+    COMMAND banner
+    )
+set_tests_properties( banner_usage
+    PROPERTIES
+    PASS_REGULAR_EXPRESSION "Usage: .*"
+    )
+
+#add_test( NAME banner_interaction
+#    )
+
+add_test( NAME banner_return_true
+    COMMAND banner true
+    )
+add_test( NAME banner_return_false
+    COMMAND banner false
+    )
+set_tests_properties( banner_return_false
+    PROPERTIES
+    WILL_FAIL TRUE
+    )
+
+#add_test( NAME banner_exec_fail
+#    )
 
 add_executable( ncpty_test ncpty_test.c )
 target_include_directories( ncpty_test
