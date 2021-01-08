@@ -95,7 +95,7 @@ banner_permission_test() {
 
     [ "${rc}" -ne "0" ]
 }
-add_test 'banner_permission_test'
+#add_test 'banner_permission_test'
 
 
 banner_interaction_test() {
