@@ -4,4 +4,5 @@
 /.ccls-cache
 /.vagrant
 /build
+/deps/ncurses
 *.gcov
