@@ -59,6 +59,7 @@ add_test( NAME ncpty_test
     )
 
 find_program( GCOV gcov REQUIRED )
+mark_as_advanced( GCOV )
 
 add_custom_target( coverage
     COMMAND ${GCOV} -i src/bin/banner.c -o ${CMAKE_BINARY_DIR}/src/bin/CMakeFiles/banner.dir/banner.c.

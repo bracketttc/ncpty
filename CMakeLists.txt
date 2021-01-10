@@ -26,6 +26,7 @@ if( NOT DOC_ONLY_BUILD )
     find_package( PkgConfig REQUIRED )
     pkg_check_modules( panel REQUIRED IMPORTED_TARGET panel )
     pkg_check_modules( vterm REQUIRED IMPORTED_TARGET vterm )
+    mark_as_advanced( pkgcfg_lib_panel_panel pkgcfg_lib_vterm_vterm )
 endif()
 
 set( CMAKE_POSITION_INDEPENDENT_CODE ON )
