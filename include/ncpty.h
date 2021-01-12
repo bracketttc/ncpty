@@ -1,8 +1,8 @@
 // Copyright (c) 2020 Timothy Brackett
 // Licensed under the MIT license
 
-#ifndef NCPTY_H_INCLUDED
-#define NCPTY_H_INCLUDED
+#ifndef INCLUDE_NCPTY_H_
+#define INCLUDE_NCPTY_H_
 
 /// @file ncpty.h
 /// Public header for ncpty - the curses pseudoterminal.
@@ -61,4 +61,4 @@ int ncpty_execvp( struct ncpty_t* pty, const char* file, char* const argv[] );
 bool ncpty_status( struct ncpty_t* pty, int* exit_code );
 
 
-#endif // NCPTY_H_INCLUDED
+#endif // INCLUDE_NCPTY_H_
