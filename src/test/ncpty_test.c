@@ -244,5 +244,6 @@ int main( int argc, char** argv )
         RUN_TEST( resource_starvation_test );
         } );
 
-    GREATEST_MAIN_END();
+    GREATEST_PRINT_REPORT();
+    ncpty_exit( greatest_all_passed() ? EXIT_SUCCESS : EXIT_FAILURE );
 }

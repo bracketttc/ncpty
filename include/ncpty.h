@@ -60,5 +60,10 @@ int ncpty_execvp( struct ncpty_t* pty, const char* file, char* const argv[] );
 /// @returns @c true if process is still running, @c false otherwise
 bool ncpty_status( struct ncpty_t* pty, int* exit_code );
 
+/// @brief Exit program
+///
+/// Convenience function. Uses @c exit_curses if built with ncurses 6.2.20191214 or later.
+/// @param[in] exit_code
+void ncpty_exit( int exit_code );
 
 #endif // INCLUDE_NCPTY_H_

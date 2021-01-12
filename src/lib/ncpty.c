@@ -3,6 +3,7 @@
 
 #include "ncpty.h"
 
+#include <curses.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -187,4 +188,14 @@ bool ncpty_status( struct ncpty_t* pty, int* exit_code )
     }
 
     return true;
+}
+
+
+void ncpty_exit( int exit_code )
+{
+#if defined(NCURSES_VERSION_PATCH) && NCURSES_VERSION_PATCH >= 20191214
+    exit_curses( exit_code );
+#else
+    exit( exit_code );
+#endif
 }

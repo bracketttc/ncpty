@@ -84,7 +84,7 @@ int main( int argc, char** argv )
     {
         fprintf( stderr, "error: Unable to create ncpty\n" );
         // shutdown ncurses
-        exit( 3 );
+        ncpty_exit( 3 );
     }
 
     // format banner
@@ -137,6 +137,5 @@ int main( int argc, char** argv )
     pty_win = NULL;
 
     endwin();
-
-    return exit_code;
+    ncpty_exit( exit_code );
 }
