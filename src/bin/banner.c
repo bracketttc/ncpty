@@ -39,6 +39,8 @@ int main( int argc, char** argv )
     if ( !initscr() )
     {
         // failed to initialize ncurses
+        fprintf( stderr, "error: unable to initialize ncurses" );
+        exit( 5 );
     }
 
     if ( has_colors() )
@@ -63,12 +65,16 @@ int main( int argc, char** argv )
     if ( !pty_win )
     {
         // shutdown ncurses
+        endwin();
+        ncpty_exit( 3 );
     }
 
     PANEL* pty_panel = new_panel( pty_win );
     if ( !pty_panel )
     {
         // shutdown ncurses
+        endwin();
+        ncpty_exit( 3 );
     }
 
     // create ncpty object with panel
@@ -76,6 +82,8 @@ int main( int argc, char** argv )
     if ( !pty )
     {
         // shutdown ncurses
+        endwin();
+        ncpty_exit( 3 );
     }
     // pty_win is potentially invalid after ncpty_new call
     pty_win = NULL;
@@ -84,6 +92,8 @@ int main( int argc, char** argv )
     {
         fprintf( stderr, "error: Unable to create ncpty\n" );
         // shutdown ncurses
+        ncpty_free( pty );
+        endwin();
         ncpty_exit( 3 );
     }
 

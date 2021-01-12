@@ -47,6 +47,8 @@ void ncpty_free( struct ncpty_t* pty )
         pty->vt = NULL;
     }
     pty->panel = NULL;
+
+    free( pty );
 }
 
 

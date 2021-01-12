@@ -219,6 +219,7 @@ TEST resource_starvation_test( void )
         LIST_REMOVE( node, entries );
 
         free( node );
+        node = NULL;
     }
 
     endwin();
