@@ -32,8 +32,9 @@ set_tests_properties( banner_usage
     LABELS memcheck
     )
 
-#add_test( NAME banner_interaction
-#    )
+add_test( NAME banner_interaction
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/banner_interaction_test.sh $<TARGET_FILE:banner>
+    )
 
 add_test( NAME banner_return_true
     COMMAND banner true
