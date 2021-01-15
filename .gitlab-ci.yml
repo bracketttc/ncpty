@@ -19,7 +19,7 @@ build_test:
     stage: test
 
     script:
-        - 'git submodule init && git submodule update && mkdir build_test && cd build_test && cmake .. -DCMAKE_BUILD_TYPE:String=Debug -DNCPTY_TEST:Bool=ON -DTEST_COVERAGE:Bool=ON && make && ../run_in_tmux.sh ctest --schedule-random && make coverage'
+        - 'git submodule init && git submodule update && mkdir build_test && cd build_test && cmake .. -DCMAKE_BUILD_TYPE:String=Debug -DTEST_COVERAGE:Bool=ON && make && ../run_in_tmux.sh ctest --schedule-random && make coverage'
 
     after_script:
         - 'bash <(curl -s https://codecov.io/bash) -t ${CODECOV_TOKEN} -f *.gcov -p $(pwd)'
@@ -28,14 +28,14 @@ memcheck:
     image: gcc:latest
     stage: test
     script:
-        - 'git submodule init && git submodule update && mkdir leak_test && cd leak_test && cmake ../ -DCMAKE_BUILD_TYPE:String=Debug -DNCPTY_TEST:Bool=ON && make && ../run_in_tmux.sh ctest --schedule-random -L memcheck -D ExperimentalMemCheck && cat Testing/Temporary/MemoryChecker.*.log && [ $(cat Testing/Temporary/MemoryChecker.*.log | wc -l) == "0" ]'
+        - 'git submodule init && git submodule update && mkdir leak_test && cd leak_test && cmake ../ -DCMAKE_BUILD_TYPE:String=Debug && make && ../run_in_tmux.sh ctest --schedule-random -L memcheck -D ExperimentalMemCheck && cat Testing/Temporary/MemoryChecker.*.log && [ $(cat Testing/Temporary/MemoryChecker.*.log | wc -l) == "0" ]'
 
 coverity:
     image: registry.gitlab.com/bracketttc/ncpty/coverity:latest
     stage: test
 
     script:
-        - 'mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE:String=Release && cov-build --dir cov-int make && tar -jcf ncpty.tbz cov-int'
+        - 'mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE:String=Release -DBUILD_TESTING:Bool=OFF && cov-build --dir cov-int make && tar -jcf ncpty.tbz cov-int'
 
     after_script:
         - 'cd build && curl --form token=${COVERITY_TOKEN} --form email=brackett.tc@gmail.com --form file=@ncpty.tbz --form version=$(grep CMAKE_PROJECT_VERSION:STATIC  -r | cut -d = -f 2 | tail -n 1)-$(git rev-parse --short=8 HEAD) --form description="" https://scan.coverity.com/builds?project=bracketttc%2Fncpty'

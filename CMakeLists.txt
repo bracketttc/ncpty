@@ -64,15 +64,12 @@ else()
 endif()
 
 # options
-option( NCPTY_TEST "Build test code" OFF )
 option( TEST_COVERAGE "Build with gcov instrumentation to evaluate test coverage" OFF )
-if( NCPTY_TEST )
-    include( CTest )
-    enable_testing()
+include( CTest )
+enable_testing()
 
-    if( TEST_COVERAGE )
-        set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ftest-coverage -fprofile-arcs" )
-    endif()
+if( TEST_COVERAGE )
+    set( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ftest-coverage -fprofile-arcs" )
 endif()
 
 install( DIRECTORY include/
@@ -83,9 +80,7 @@ install( DIRECTORY include/
 if( NOT DOC_ONLY_BUILD )
     add_subdirectory( src/bin )
     add_subdirectory( src/lib )
-    if( NCPTY_TEST )
-        add_subdirectory( src/test )
-    endif()
+    add_subdirectory( src/test )
 endif()
 
 configure_file( ncpty.pc.in
