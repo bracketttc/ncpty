@@ -43,8 +43,13 @@ set_tests_properties( banner_return_false
     WILL_FAIL TRUE
     )
 
-#add_test( NAME banner_exec_fail
-#    )
+add_test( NAME banner_exec_fail
+    COMMAND banner 0
+    )
+set_tests_properties( banner_exec_fail
+    PROPERTIES
+    WILL_FAIL TRUE
+    )
 
 add_executable( ncpty_test ncpty_test.c )
 target_include_directories( ncpty_test
