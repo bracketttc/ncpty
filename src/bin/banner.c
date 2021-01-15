@@ -73,6 +73,7 @@ int main( int argc, char** argv )
     if ( !pty_panel )
     {
         // shutdown ncurses
+        delwin( pty_win );
         endwin();
         ncpty_exit( 3 );
     }
@@ -82,6 +83,8 @@ int main( int argc, char** argv )
     if ( !pty )
     {
         // shutdown ncurses
+        del_panel( pty_panel );
+        delwin( pty_win );
         endwin();
         ncpty_exit( 3 );
     }
@@ -93,6 +96,7 @@ int main( int argc, char** argv )
         fprintf( stderr, "error: Unable to create ncpty\n" );
         // shutdown ncurses
         ncpty_free( pty );
+        del_panel( pty_panel );
         endwin();
         ncpty_exit( 3 );
     }
