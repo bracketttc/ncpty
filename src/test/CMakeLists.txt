@@ -61,13 +61,15 @@ set_tests_properties( banner_exec_fail
     LABELS memcheck
     )
 
-add_executable( ncpty_test ncpty_test.c )
-target_include_directories( ncpty_test
-    PRIVATE
-    ${PROJECT_SOURCE_DIR}/deps/greatest
-    ${PROJECT_SOURCE_DIR}/include
-    )
-target_link_libraries( ncpty_test PRIVATE ncpty )
+if( BUILD_TESTING )
+    add_executable( ncpty_test ncpty_test.c )
+    target_include_directories( ncpty_test
+        PRIVATE
+        ${PROJECT_SOURCE_DIR}/deps/greatest
+        ${PROJECT_SOURCE_DIR}/include
+        )
+    target_link_libraries( ncpty_test PRIVATE ncpty )
+endif()
 
 add_test( NAME ncpty_test
     COMMAND ncpty_test
