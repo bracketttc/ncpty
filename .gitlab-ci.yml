@@ -12,7 +12,7 @@ build:
     stage: build
 
     script:
-        - 'mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE:String=Release && make'
+        - 'mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE:String=Release -DBUILD_TESTING:Bool=OFF && make'
 
 build_test:
     image: gcc:latest
