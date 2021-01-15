@@ -10,6 +10,7 @@ set_tests_properties( banner_suid
     TIMEOUT 1
     WILL_FAIL TRUE
     DISABLED TRUE
+    LABELS memcheck
     )
 add_test( NAME banner_sgid
     COMMAND banner /bin/bash
@@ -19,6 +20,7 @@ set_tests_properties( banner_sgid
     TIMEOUT 1
     WILL_FAIL TRUE
     DISABLED TRUE
+    LABELS memcheck
     )
 
 add_test( NAME banner_usage
@@ -27,6 +29,7 @@ add_test( NAME banner_usage
 set_tests_properties( banner_usage
     PROPERTIES
     PASS_REGULAR_EXPRESSION "Usage: .*"
+    LABELS memcheck
     )
 
 #add_test( NAME banner_interaction
@@ -35,12 +38,17 @@ set_tests_properties( banner_usage
 add_test( NAME banner_return_true
     COMMAND banner true
     )
+set_tests_properties( banner_return_true
+    PROPERTIES
+    LABELS memcheck
+    )
 add_test( NAME banner_return_false
     COMMAND banner false
     )
 set_tests_properties( banner_return_false
     PROPERTIES
     WILL_FAIL TRUE
+    LABELS memcheck
     )
 
 add_test( NAME banner_exec_fail
@@ -49,6 +57,7 @@ add_test( NAME banner_exec_fail
 set_tests_properties( banner_exec_fail
     PROPERTIES
     WILL_FAIL TRUE
+    LABELS memcheck
     )
 
 add_executable( ncpty_test ncpty_test.c )
@@ -61,6 +70,10 @@ target_link_libraries( ncpty_test PRIVATE ncpty )
 
 add_test( NAME ncpty_test
     COMMAND ncpty_test
+    )
+set_tests_properties( ncpty_test
+    PROPERTIES
+    LABELS memcheck
     )
 
 find_program( GCOV gcov REQUIRED )
