@@ -1,0 +1,10 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - init: mkdir build && cd build && cmake ..
+    command: cmake --build .
+
+vscode:
+  extensions:
+    - ms-vscode.cmake-tools@1.6.0:lvoCR5usjseB5thI3sZhWA==

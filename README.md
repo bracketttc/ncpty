@@ -6,6 +6,7 @@ Licensed under the MIT license
 # ncpty - an NCurses pseudoterminal library
 
 <!-- Badges -->
+[![Gitpod ready-to-code][gitpod-badge]][gitpod]
 [![Gitlab][pipeline]][home]
 [![codecov.io][codecov-badge]][codecov]
 [![Coverity][coverity-badge]][coverity]
@@ -22,6 +23,8 @@ Based on the [libvterm][libvterm] abstract terminal emulator.
 [codecov]: https://codecov.io/gl/bracketttc/ncpty
 [coverity-badge]: https://scan.coverity.com/projects/20891/badge.svg?flat=1
 [coverity]: https://scan.coverity.com/projects/bracketttc-ncpty
+[gitpod-badge]: https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod
+[gitpod]: https://gitpod.io/#https://gitlab.com/bracketttc/ncpty
 [gitter-badge]: https://badges.gitter.im/bracketttc-ncpty/community.svg
 [gitter]: https://gitter.im/bracketttc-ncpty/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
 [home]: https://gitlab.com/bracketttc/ncpty
