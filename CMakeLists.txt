@@ -92,6 +92,21 @@ install( FILES ${CMAKE_BINARY_DIR}/ncpty.pc
     COMPONENT devel
     )
 
+include( CMakePackageConfigHelpers )
+configure_package_config_file( ${CMAKE_CURRENT_SOURCE_DIR}/ncptyConfig.cmake.in
+    "${CMAKE_CURRENT_BINARY_DIR}/ncptyConfig.cmake"
+    INSTALL_DESTINATION lib/cmake/ncpty
+    )
+write_basic_package_version_file(
+    "${CMAKE_CURRENT_BINARY_DIR}/ncptyConfigVersion.cmake"
+    COMPATIBILITY SameMajorVersion
+    )
+install( FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/ncptyConfig.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/ncptyConfigVersion.cmake
+    DESTINATION lib/cmake/ncpty
+    )
+
 option( BUILD_DOCUMENTATION "Generate Doxygen documentation" ON )
 if( BUILD_DOCUMENTATION)
     find_package( Doxygen
