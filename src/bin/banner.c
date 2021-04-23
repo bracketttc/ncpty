@@ -9,6 +9,7 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 #include "ncpty.h"
@@ -16,6 +17,42 @@
 void print_usage( const char* name )
 {
     printf( "Usage: %s COMMAND [ARGS]\n", name );
+}
+
+
+int fallback( int argc, char** argv )
+{
+    (void)argc;
+
+    int pipes[2] = {0};
+    if ( pipe( pipes ) == -1 )
+    {
+        fprintf( stderr, "Pipe failed" );
+        return 1;
+    }
+
+    printf("UNCLASSIFIED\n\n");
+    fflush( stdout );
+    pid_t pid = fork();
+    if ( pid == -1 )
+    {
+        fprintf( stderr, "Fork failed" );
+        return 1;
+    }
+
+    if ( pid )
+    {
+        // parent-side
+        int exit_code = 0;
+        waitpid( pid, &exit_code, 0 );
+        printf("\nUNCLASSIFIED\n");
+        return exit_code;
+    }
+    else
+    {
+        // child-side
+        return execvp( argv[1], argv + 1 );
+    }
 }
 
 
@@ -33,6 +70,11 @@ int main( int argc, char** argv )
     {
         fprintf( stderr, "error: this executable cannot be suid or sgid\n" );
         exit( 4 );
+    }
+
+    if ( !isatty( STDOUT_FILENO ) )
+    {
+        return fallback( argc, argv );
     }
 
     // initialize ncurses
