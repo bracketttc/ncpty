@@ -2,27 +2,6 @@
 # Licensed under the MIT license
 
 # Tests
-add_test( NAME banner_suid
-    COMMAND banner /bin/bash
-    )
-set_tests_properties( banner_suid
-    PROPERTIES
-    TIMEOUT 1
-    WILL_FAIL TRUE
-    DISABLED TRUE
-    LABELS memcheck
-    )
-add_test( NAME banner_sgid
-    COMMAND banner /bin/bash
-    )
-set_tests_properties( banner_sgid
-    PROPERTIES
-    TIMEOUT 1
-    WILL_FAIL TRUE
-    DISABLED TRUE
-    LABELS memcheck
-    )
-
 add_test( NAME banner_usage
     COMMAND banner
     )

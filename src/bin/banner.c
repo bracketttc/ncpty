@@ -64,14 +64,6 @@ int main( int argc, char** argv )
         exit( 1 );
     }
 
-    /* ensure banner executable does not have either the set-user-ID bit or the
-     * set-group-ID bit set. */
-    if ( getuid() != geteuid() || getgid() != getegid() )
-    {
-        fprintf( stderr, "error: this executable cannot be suid or sgid\n" );
-        exit( 4 );
-    }
-
     if ( !isatty( STDOUT_FILENO ) )
     {
         return fallback( argc, argv );
