@@ -43,10 +43,13 @@ int fallback( int argc, char** argv )
     if ( pid )
     {
         // parent-side
-        int exit_code = 0;
-        waitpid( pid, &exit_code, 0 );
+        //int exit_code = 0;
+        siginfo_t siginfo = { 0 };
+        waitid( P_PID, pid, &siginfo, WEXITED );
+        //waitpid( pid, &exit_code, 0 );
         printf("\nUNCLASSIFIED\n");
-        return exit_code;
+        //return exit_code;
+        return siginfo.si_status;
     }
     else
     {
