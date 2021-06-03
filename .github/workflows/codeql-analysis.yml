@@ -42,7 +42,7 @@ jobs:
     #    uses a compiled language
 
     - run: |
-       apt-get update && apt-get install cmake cmake-data libncurses-dev libvterm-dev doxygen graphviz tmux
+       sudo apt-get update && sudo apt-get install cmake cmake-data libncurses-dev libvterm-dev doxygen graphviz tmux
        mkdir build
        cd build
        cmake .. -DCMAKE_BUILD_TYPE:String=Release
