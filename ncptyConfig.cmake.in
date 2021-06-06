@@ -1,4 +1,13 @@
+set( ncpty_VERSION @PROJECT_VERSION@ )
+
 @PACKAGE_INIT@
+
+include( CMakeFindDependencyMacro )
+find_dependency( Curses )
+find_dependency( Threads )
+find_dependency( PkgConfig )
+pkg_check_modules( panel IMPORTED_TARGET panel )
+pkg_check_modules( vterm IMPORTED_TARGET vterm )
 
 include( "${CMAKE_CURRENT_LIST_DIR}/ncptyTargets.cmake" )
 

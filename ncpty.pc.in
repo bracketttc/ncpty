@@ -6,6 +6,7 @@ Name: @CMAKE_PROJECT_NAME@
 Description: @CMAKE_PROJECT_DESCRIPTION@
 Version: @CMAKE_PROJECT_VERSION@
 URL: @CMAKE_PROJECT_HOMEPAGE_URL@
+Requires: ncurses
 Requires: panel
 Requires.private: vterm
 Cflags: -I${includedir}
