@@ -16,6 +16,13 @@ set( CMAKE_C_EXTENSIONS OFF )
 
 set( CMAKE_EXPORT_COMPILE_COMMANDS ON )
 
+if( NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES )
+    message( STATUS "Defaulting CMAKE_BUILD_TYPE to Release" )
+    set( CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build, options are: Debug Release MinSizeRel RelWithDebInfo ..." FORCE )
+    set_property( CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo" )
+endif()
+
+
 option( DOC_ONLY_BUILD "Only build documentation (for readthedocs)" OFF )
 if( NOT DOC_ONLY_BUILD )
     # Get dependencies
