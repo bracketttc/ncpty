@@ -7,6 +7,7 @@ Licensed under the MIT license
 
 <!-- Badges -->
 [![Gitpod ready-to-code][gitpod-badge]][gitpod]
+[![CII Best Practices][cii-badge]][cii]
 [![Gitlab][pipeline]][home]
 [![codecov.io][codecov-badge]][codecov]
 [![Coverity][coverity-badge]][coverity]
@@ -19,6 +20,8 @@ Licensed under the MIT license
 Based on the [libvterm][libvterm] abstract terminal emulator.
 
 <!-- Links -->
+[cii-badge]: https://bestpractices.coreinfrastructure.org/projects/4967/badge
+[cii]: https://bestpractices.coreinfrastructure.org/projects/4967
 [codecov-badge]: https://codecov.io/gl/bracketttc/ncpty/branch/devel/graph/badge.svg
 [codecov]: https://codecov.io/gl/bracketttc/ncpty
 [coverity-badge]: https://scan.coverity.com/projects/20891/badge.svg?flat=1
