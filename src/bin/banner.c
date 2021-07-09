@@ -16,7 +16,7 @@
 
 void print_usage( const char* name )
 {
-    printf( "Usage: %s COMMAND [ARGS]\n", name );
+    printf( "Usage: %s [-f] COMMAND [ARGS]\n    -f    Force curses mode\n", name );
 }
 
 
@@ -54,22 +54,39 @@ int fallback( int argc, char** argv )
     else
     {
         // child-side
-        return execvp( argv[1], argv + 1 );
+        return execvp( argv[0], argv );
     }
 }
 
 
 int main( int argc, char** argv )
 {
-    if ( argc < 2 )
+    // process arguments
+    bool forced = false;
+
+    int opt;
+    while (( opt = getopt( argc, argv, "f" )) != -1 ) {
+        switch ( opt ) {
+            case 'f':
+                forced = true;
+                break;
+            default:
+                fprintf( stderr, "Unrecognized option '%c'\n", opt );
+                print_usage( argv[0] );
+                exit( 1 );
+        }
+    }
+
+    if ( argc <= optind )
     {
+        fprintf( stderr, "Insufficient arguments\n" );
         print_usage( argv[0] );
         exit( 1 );
     }
 
-    if ( !isatty( STDOUT_FILENO ) )
+    if ( !forced && !isatty( STDOUT_FILENO ) )
     {
-        return fallback( argc, argv );
+        return fallback( argc - optind, &argv[optind] );
     }
 
     // initialize ncurses
@@ -128,7 +145,7 @@ int main( int argc, char** argv )
     // pty_win is potentially invalid after ncpty_new call
     pty_win = NULL;
 
-    if ( 0 != ncpty_execvp( pty, argv[1], argv + 1 ) )
+    if ( 0 != ncpty_execvp( pty, argv[optind], argv + optind ) )
     {
         fprintf( stderr, "error: Unable to create ncpty\n" );
         // shutdown ncurses

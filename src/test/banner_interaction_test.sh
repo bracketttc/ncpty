@@ -7,7 +7,7 @@ banner=$1
 
 SECONDS=0
 
-tmux new -d -s 'interaction-test' "\"${banner}\"" sleep 100
+tmux new -d -s 'interaction-test' "\"${banner}\" -f" sleep 100
 sleep 1
 tmux send-keys -t 'interaction-test' ' q'
 
