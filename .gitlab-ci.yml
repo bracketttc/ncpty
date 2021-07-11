@@ -22,7 +22,7 @@ build_test:
         - 'git submodule init && git submodule update && mkdir build_test && cd build_test && cmake .. -DCMAKE_BUILD_TYPE:String=Debug -DTEST_COVERAGE:Bool=ON && make && ../run_in_tmux.sh ctest --schedule-random && make coverage'
 
     after_script:
-        - 'apt-get install -y python3-pip && pip install cpp-coveralls && coveralls --exclude src/test --exclude build_test --gcov-options "\-lp"'
+        - 'apt-get install -y python3-pip && pip install cpp-coveralls && coveralls --exclude src/test --exclude build_test --gcov-options "\-lp" --verbose'
 
 memcheck:
     image: gcc:latest
