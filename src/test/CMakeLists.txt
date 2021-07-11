@@ -15,6 +15,14 @@ add_test( NAME banner_interaction
     COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/banner_interaction_test.sh $<TARGET_FILE:banner>
     )
 
+add_test( NAME banner_forced_curses
+    COMMAND banner -f sleep 1
+    )
+set_tests_properties( banner_forced_curses
+    PROPERTIES
+    LABELS memcheck
+    )
+
 add_test( NAME banner_return_true
     COMMAND banner true
     )
