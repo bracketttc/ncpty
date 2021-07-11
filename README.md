@@ -9,7 +9,7 @@ Licensed under the MIT license
 [![Gitpod ready-to-code][gitpod-badge]][gitpod]
 [![CII Best Practices][cii-badge]][cii]
 [![Gitlab][pipeline]][home]
-[![codecov.io][codecov-badge]][codecov]
+[![coveralls.io][coveralls-badge]][coveralls]
 [![Coverity][coverity-badge]][coverity]
 [![LGTM][lgtm-alerts-badge]][lgtm-alerts]
 [![LGTM][lgtm-quality-badge]][lgtm-quality]
@@ -22,8 +22,8 @@ Based on the [libvterm][libvterm] abstract terminal emulator.
 <!-- Links -->
 [cii-badge]: https://bestpractices.coreinfrastructure.org/projects/4967/badge
 [cii]: https://bestpractices.coreinfrastructure.org/projects/4967
-[codecov-badge]: https://codecov.io/gl/bracketttc/ncpty/branch/devel/graph/badge.svg
-[codecov]: https://codecov.io/gl/bracketttc/ncpty
+[coveralls-badge]: https://coveralls.io/repos/gitlab/bracketttc/ncpty/badge.svg
+[coveralls]: https://coveralls.io/gitlab/bracketttc/ncpty
 [coverity-badge]: https://scan.coverity.com/projects/20891/badge.svg?flat=1
 [coverity]: https://scan.coverity.com/projects/bracketttc-ncpty
 [gitpod-badge]: https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod
