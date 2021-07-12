@@ -58,13 +58,19 @@ if( BUILD_TESTING )
     target_link_libraries( ncpty_test PRIVATE ncpty )
 endif()
 
-add_test( NAME ncpty_test
-    COMMAND ncpty_test
-    )
-set_tests_properties( ncpty_test
-    PROPERTIES
-    LABELS memcheck
-    )
+# Enumerate tests and run separately like GoogleTests integrated with CMake
+file( READ ncpty_test.c contents )
+string( REGEX MATCHALL "TEST +[A-Za-z_0-9]+" found_tests "${contents}")
+foreach( hit ${found_tests} )
+    string( REGEX REPLACE "TEST +" "" greatest_test_name ${hit} )
+    add_test( NAME ${greatest_test_name}
+        COMMAND ncpty_test -t ${greatest_test_name}
+        )
+    set_tests_properties( ${greatest_test_name}
+        PROPERTIES
+        LABELS memcheck
+        )
+endforeach()
 
 find_program( GCOV gcov REQUIRED )
 mark_as_advanced( GCOV )
