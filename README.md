@@ -18,6 +18,19 @@ Licensed under the MIT license
 [![Gitter][gitter-badge]][gitter]
 
 Based on the [libvterm][libvterm] abstract terminal emulator.
+ncpty aims to make it easier to embed other console/TUI programs inside of an ncurses interface.
+
+The example project, `banner`, wraps a terminal command or shell in classification banners like one might see in a US government classified GUI or web site.
+
+## Building
+
+ncpty is built using CMake.
+Dependencies are ncurses, panel, and vterm.
+
+## Contributing
+
+Help and/or feedback is appreciated.
+See the [CONTRIBUTING](./CONTRIBUTING.md) page.
 
 <!-- Links -->
 [cii-badge]: https://bestpractices.coreinfrastructure.org/projects/4967/badge
