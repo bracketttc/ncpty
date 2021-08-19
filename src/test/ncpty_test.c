@@ -38,7 +38,10 @@ TEST fork_fail_test( void )
 
     struct rlimit nproc_new_limit = nproc_limit;
     nproc_new_limit.rlim_cur = 10;
-    setrlimit( RLIMIT_NPROC, &nproc_new_limit );
+    if ( -1 == setrlimit( RLIMIT_NPROC, &nproc_new_limit ) )
+    {
+        SKIPm( "Unable to set process limit, skipping this test." );
+    }
 
     char* file = "sleep";
     char* arg = "100";
