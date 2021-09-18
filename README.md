@@ -32,6 +32,10 @@ Dependencies are ncurses, panel, and vterm.
 Help and/or feedback is appreciated.
 See the [CONTRIBUTING](./CONTRIBUTING.md) page.
 
+## Bug / Vulnerability Reporting
+
+All issues may be reported using the Gitlab [Issues page][issues].
+
 <!-- Links -->
 [cii-badge]: https://bestpractices.coreinfrastructure.org/projects/4967/badge
 [cii]: https://bestpractices.coreinfrastructure.org/projects/4967
@@ -44,6 +48,7 @@ See the [CONTRIBUTING](./CONTRIBUTING.md) page.
 [gitter-badge]: https://badges.gitter.im/bracketttc-ncpty/community.svg
 [gitter]: https://gitter.im/bracketttc-ncpty/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
 [home]: https://gitlab.com/bracketttc/ncpty
+[issues]: https://gitlab.com/bracketttc/ncpty/-/issues
 [lgtm-alerts-badge]: https://img.shields.io/lgtm/alerts/g/bracketttc/ncpty.svg?logo=lgtm&logoWidth=18
 [lgtm-alerts]: https://lgtm.com/projects/g/bracketttc/ncpty/alerts/
 [lgtm-quality-badge]: https://img.shields.io/lgtm/grade/cpp/g/bracketttc/ncpty.svg?logo=lgtm&logoWidth=18
