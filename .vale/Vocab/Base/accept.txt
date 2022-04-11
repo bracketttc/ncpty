@@ -1,0 +1,7 @@
+GPG
+Github
+Gitlab
+MIT
+ncpty
+ncurses
+readthedocs
