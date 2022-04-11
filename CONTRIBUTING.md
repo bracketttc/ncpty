@@ -5,24 +5,21 @@ Licensed under the MIT license
 
 # Contributing
 
-Feedback and contributions are welcome!
+Feedback and contributions are welcome.
 
 ## General information
 
 For specific proposals or change requests, please use the [issues][issues] and [pull requests][pull requests] pages on the [Gitlab site][home].
 For general discussion or support, feel free to join the conversation on [Gitter][gitter].
 
-### License (MIT)
+### License
 
 All contributed material must be released under the [MIT license][MIT license].
 
 ### Code style
 
-Code style is defined in a [`clang-format`][clang-format] [specification](.clang-format).
-In general, code should be reformatted before committing, but in some cases, it may be clearer to do the formatting in a separate commit.
-Format only commits should be added to the [`.git-blame-ignore-revs`](.git-blame-ignore-revs) file.
-
-An example of a change that should be committed without being reformatted is a change to a single line in a block of assignments.
+Reformat code using `clang-format` before committing.
+Refer to [`clang-format`][clang-format] [specification](.clang-format) for specific details.
 
 ### Git commit style
 
@@ -31,12 +28,12 @@ Main points:
  - Separate subject from body with an blank line
  - Limit the subject line to 50 characters
  - Capitalize the subject line
- - Do not end the subject line with a period
- - Use the imperitive mood in the subject line
+ - Don't end the subject line with a period
+ - Use the imperative mood in the subject line
  - Wrap the body at 72 characters
  - Use the body to explain *what* and *why* vs. *how*
 
- Commits are not required to be GPG signed or signed-off, but it is not discouraged either.
+Commits aren't required to be GPG signed or signed-off, but it's not discouraged either.
 
 <!-- Links -->
 [chris-beams]: https://chris.beams.io/posts/git-commit/
