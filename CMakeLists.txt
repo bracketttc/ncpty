@@ -54,11 +54,26 @@ if( USE_INTERNAL_NCURSES_BUILD )
     set( CURSES_NCURSES_LIBRARY ${CMAKE_BINARY_DIR}/ncurses/lib/libncurses.so CACHE PATH "" FORCE )
     set( pkgcfg_lib_panel_panel ${CMAKE_BINARY_DIR}/ncurses/lib/libpanel.so CACHE PATH "" FORCE )
 endif()
+
 # C flags
-string( APPEND CMAKE_C_FLAGS " -ansi -Wall -Wextra -pedantic -Werror=implicit-function-declaration" )
+add_compile_options(
+    #"-ansi"
+    "-Wall"
+    "-Wextra"
+    "-pedantic"
+    "-Werror=implicit-function-declaration"
+)
 
 # Security-enhancing flags
-string( APPEND CMAKE_C_FLAGS " --stack-protector-strong -D_FORTIFY_SOURCE=2 -Wl,-z,relro -Wl,-z,now" )
+add_compile_options(
+    "--stack-protector-strong"
+    "-fcf-protection=full"
+)
+add_link_options(
+    -zrelro
+    -znow
+)
+add_compile_definitions( "_FORTIFY_SOURCE=2" )
 string( APPEND CMAKE_EXE_LINKER_FLAGS " -pie" )
 
 # Analysis
