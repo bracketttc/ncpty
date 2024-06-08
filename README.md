@@ -11,8 +11,6 @@ Licensed under the MIT license
 [![Gitlab][pipeline]][home]
 [![coveralls.io][coveralls-badge]][coveralls]
 [![Coverity][coverity-badge]][coverity]
-[![LGTM][lgtm-alerts-badge]][lgtm-alerts]
-[![LGTM][lgtm-quality-badge]][lgtm-quality]
 [![MIT License][license-badge]][license]
 [![readthedocs][readthedocs-badge]][readthedocs]
 [![Gitter][gitter-badge]][gitter]
