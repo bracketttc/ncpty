@@ -31,6 +31,15 @@ memcheck:
     script:
         - 'git submodule init && git submodule update && mkdir leak_test && cd leak_test && cmake ../ -DCMAKE_BUILD_TYPE:String=Debug -DUSE_INTERNAL_NCURSES_BUILD:Bool=ON && make && cmake . && make && ../run_in_tmux.sh ctest --schedule-random -L memcheck -D ExperimentalMemCheck && cat Testing/Temporary/MemoryChecker.*.log && [ $(cat Testing/Temporary/MemoryChecker.*.log | wc -l) == "0" ]'
 
+coverity-image:
+  image: docker:26.1-dind
+  stage: build
+  when: manual
+  script:
+    - cd .coverity
+    - docker build -t registry.gitlab.com/bracketttc/ncpty/coverity:latest --build-arg="COVERITY_TOKEN=${COVERITY_TOKEN}" .
+    - docker push registry.gitlab.com/bracketttc/ncpty/coverity:latest
+
 coverity:
     image: registry.gitlab.com/bracketttc/ncpty/coverity:latest
     stage: test
