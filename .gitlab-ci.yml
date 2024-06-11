@@ -35,6 +35,8 @@ coverity-image:
   image: docker:26.1-dind
   stage: build
   when: manual
+  before_script:
+    - true
   script:
     - cd .coverity
     - docker build -t registry.gitlab.com/bracketttc/ncpty/coverity:latest --build-arg="COVERITY_TOKEN=${COVERITY_TOKEN}" .
