@@ -43,6 +43,7 @@ coverity-image:
         - /kaniko/executor
           --context "${CI_PROJECT_DIR}/.coverity"
           --dockerfile "${CI_PROJECT_DIR}/.coverity/Dockerfile"
+          --build-arg "COVERITY_TOKEN=${COVERITY_TOKEN}"
           --destination "registry.gitlab.com/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}/coverity:latest"
 
 coverity:
