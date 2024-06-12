@@ -42,8 +42,8 @@ coverity-image:
     script:
         - /kaniko/executor
           --context "${CI_PROJECT_DIR}/.coverity"
-          --dockerfile "${CI_PROJECT_DIR}/.coverity/Dockerfile
-          --destination registry.gitlab.com/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}/coverity:latest
+          --dockerfile "${CI_PROJECT_DIR}/.coverity/Dockerfile"
+          --destination "registry.gitlab.com/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}/coverity:latest"
 
 coverity:
     image: registry.gitlab.com/bracketttc/ncpty/coverity:latest
