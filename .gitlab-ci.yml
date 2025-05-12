@@ -2,7 +2,8 @@
 # Licensed under the MIT license
 
 before_script:
-    - 'apt-get update && apt-get install -y cmake cmake-data curl libncurses-dev libvterm-dev doxygen graphviz tmux valgrind'
+    - apt-get update
+    - apt-get install -y cmake cmake-data curl libncurses-dev libvterm-dev doxygen graphviz tmux valgrind
 
 include:
     - template: SAST.gitlab-ci.yml
@@ -12,24 +13,49 @@ build:
     stage: build
 
     script:
-        - 'git submodule init && git submodule update && mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE:String=Release -DBUILD_TESTING:Bool=OFF && make'
+        - git submodule init
+        - git submodule update
+        - mkdir build
+        - cd build
+        - cmake .. -DCMAKE_BUILD_TYPE:String=Release -DBUILD_TESTING:Bool=OFF
+        - cmake --build .
 
 build_test:
     image: gcc:latest
     stage: test
 
     script:
-        - 'git submodule init && git submodule update && mkdir build_test && cd build_test && cmake .. -DCMAKE_BUILD_TYPE:String=Debug -DTEST_COVERAGE:Bool=ON && make && ../run_in_tmux.sh ctest --schedule-random && make coverage'
+        - git submodule init
+        - git submodule update
+        - mkdir build_test
+        - cd build_test
+        - cmake .. -DCMAKE_BUILD_TYPE:String=Debug -DTEST_COVERAGE:Bool=ON
+        - cmake --build .
+        - ../run_in_tmux.sh ctest --schedule-random
+        - cmake --build . --target coverage
 
     after_script:
-        - 'apt-get install -y python3-venv && python3 -m venv .venv && .venv/bin/pip install cpp-coveralls && .venv/bin/coveralls --exclude src/test --exclude build_test --gcov-options "\-lp"'
+        - apt-get install -y python3-venvi
+        - python3 -m venv .venv
+        - .venv/bin/pip install cpp-coveralls
+        - .venv/bin/coveralls --exclude src/test --exclude build_test --gcov-options "\-lp"
 
 memcheck:
     image: gcc:latest
     stage: test
     when: manual
     script:
-        - 'git submodule init && git submodule update && mkdir leak_test && cd leak_test && cmake ../ -DCMAKE_BUILD_TYPE:String=Debug -DUSE_INTERNAL_NCURSES_BUILD:Bool=ON && make && cmake . && make && ../run_in_tmux.sh ctest --schedule-random -L memcheck -D ExperimentalMemCheck && cat Testing/Temporary/MemoryChecker.*.log && [ $(cat Testing/Temporary/MemoryChecker.*.log | wc -l) == "0" ]'
+        - git submodule init
+        - git submodule update
+        - mkdir leak_test
+        - cd leak_test
+        - cmake ../ -DCMAKE_BUILD_TYPE:String=Debug -DUSE_INTERNAL_NCURSES_BUILD:Bool=ON
+        - cmake --build .
+        - cmake .
+        - cmake --build .
+        - ../run_in_tmux.sh ctest --schedule-random -L memcheck -D ExperimentalMemCheck
+        - cat Testing/Temporary/MemoryChecker.*.log
+        - [ $(cat Testing/Temporary/MemoryChecker.*.log | wc -l) == "0" ]
 
 coverity-image:
     image:
@@ -51,7 +77,12 @@ coverity:
     stage: test
 
     script:
-        - 'mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE:String=Release -DBUILD_TESTING:Bool=OFF && cov-build --dir cov-int make && tar -jcf ncpty.tbz cov-int'
+        - mkdir build
+        - cd build
+        - cmake .. -DCMAKE_BUILD_TYPE:String=Release -DBUILD_TESTING:Bool=OFF
+        - cov-build --dir cov-int make
+        - tar -jcf ncpty.tbz cov-int
 
     after_script:
-        - 'cd build && curl --form token=${COVERITY_TOKEN} --form email=brackett.tc@gmail.com --form file=@ncpty.tbz --form version=$(grep CMAKE_PROJECT_VERSION:STATIC  -r | cut -d = -f 2 | tail -n 1)-$(git rev-parse --short=8 HEAD) --form description="" https://scan.coverity.com/builds?project=bracketttc%2Fncpty'
+        - cd build
+        - curl --form token=${COVERITY_TOKEN} --form email=brackett.tc@gmail.com --form file=@ncpty.tbz --form version=$(grep CMAKE_PROJECT_VERSION:STATIC  -r | cut -d = -f 2 | tail -n 1)-$(git rev-parse --short=8 HEAD) --form description="" https://scan.coverity.com/builds?project=bracketttc%2Fncpty
