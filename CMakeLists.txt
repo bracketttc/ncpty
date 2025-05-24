@@ -74,7 +74,7 @@ add_link_options(
     -zrelro
     -znow
 )
-add_compile_definitions( "_FORTIFY_SOURCE=2" )
+add_compile_definitions( $<IF:$<CONFIG:Debug>,,__FORTIFY_SOURCE=2> )
 
 include(CheckPIESupported)
 check_pie_supported()
