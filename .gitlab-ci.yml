@@ -35,7 +35,7 @@ build_test:
         - cmake --build . --target coverage
 
     after_script:
-        - apt-get install -y python3-venvi
+        - apt-get install -y python3-venv
         - python3 -m venv .venv
         - .venv/bin/pip install cpp-coveralls
         - .venv/bin/coveralls --exclude src/test --exclude build_test --gcov-options "\-lp"
