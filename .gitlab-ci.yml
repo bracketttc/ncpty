@@ -35,11 +35,8 @@ build_test:
         - cmake --build . --target coverage
 
     after_script:
-        - apt-get install -y gcovr python3-venv
-        - python3 -m venv .venv
-        - .venv/bin/pip install cpp-coveralls
-        - .venv/bin/coveralls --exclude src/test --exclude build_test --gcov-options "\-lp"
-        - gcovr --xml-pretty -o coverage.xml --root .
+        - apt-get install -y gcovr
+        - gcovr --xml-pretty -o coverage.xml --root . --gcov-ignore-parse-errors --print-summary
 
     artifacts:
       name: ${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA}
