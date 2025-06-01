@@ -126,6 +126,7 @@ int ncpty_execvp( struct ncpty_t* pty, const char* file, char* const argv[] )
     if ( fstat( fd_child, &final_stat ) < 0 )
     {
         fprintf( stderr, "error: fstat failed on child pty\n" );
+        close( fd_child );
         close( pty->fd );
         pty->fd = -1;
         return -1;
@@ -134,6 +135,7 @@ int ncpty_execvp( struct ncpty_t* pty, const char* file, char* const argv[] )
     if ( initial_stat.st_dev != final_stat.st_dev || initial_stat.st_ino != final_stat.st_ino )
     {
         fprintf( stderr, "error: child pty does not match initial\n" );
+        close( fd_child );
         close( pty->fd );
         pty->fd = -1;
         return -1;
