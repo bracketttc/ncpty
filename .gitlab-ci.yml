@@ -20,6 +20,10 @@ build:
         - cmake .. -DCMAKE_BUILD_TYPE:String=Release -DBUILD_TESTING:Bool=OFF
         - cmake --build .
 
+semgrep-sast:
+  before_script:
+    - true
+
 build_test:
     image: gcc:latest
     stage: test
