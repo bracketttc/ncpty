@@ -157,7 +157,7 @@ int main( int argc, char** argv )
 
     // format banner
     const char caption[] = "UNCLASSIFIED";
-    const int  len       = strlen( caption );
+    const int  len       = strnlen( caption, width );
 
     init_pair( 1, COLOR_WHITE, COLOR_GREEN );
     attron( COLOR_PAIR( 1 ) );
