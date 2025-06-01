@@ -22,7 +22,7 @@ build:
 
 semgrep-sast:
   before_script:
-    - true
+    - "true"
 
 build_test:
     image: gcc:latest
