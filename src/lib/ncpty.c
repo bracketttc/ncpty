@@ -113,7 +113,7 @@ int ncpty_execvp( struct ncpty_t* pty, const char* file, char* const argv[] )
         return -1;
     }
 
-    int fd_child = open( ptsname( pty->fd ), O_RDWR );
+    int fd_child = open( path, O_RDWR );
     if ( fd_child < 0 )
     {
         fprintf( stderr, "error: Unable to open child pty\n" );
