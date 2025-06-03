@@ -8,6 +8,16 @@ before_script:
 include:
     - template: SAST.gitlab-ci.yml
 
+format:
+  image: gcc:latest
+  stage: build
+
+  before_script:
+    - apt-get update
+    - apt-get install -y clang-format
+  script:
+    - make check_format
+
 build:
     image: gcc:latest
     stage: build
