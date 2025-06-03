@@ -5,6 +5,9 @@
 /// Simple example of ncpty use that wraps a terminal in header and footer
 /// banners.
 
+
+#include "ncpty.h"
+
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
@@ -12,11 +15,10 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#include "ncpty.h"
-
 void print_usage( const char* name )
 {
-    printf( "Usage: %s [-f] COMMAND [ARGS]\n    -f    Force curses mode\n", name );
+    printf( "Usage: %s [-f] COMMAND [ARGS]\n    -f    Force curses mode\n",
+            name );
 }
 
 
@@ -24,14 +26,14 @@ int fallback( int argc, char** argv )
 {
     (void)argc;
 
-    int pipes[2] = {0};
+    int pipes[2] = { 0 };
     if ( pipe( pipes ) == -1 )
     {
         fprintf( stderr, "Pipe failed" );
         return 1;
     }
 
-    printf("UNCLASSIFIED\n\n");
+    printf( "UNCLASSIFIED\n\n" );
     fflush( stdout );
     pid_t pid = fork();
     if ( pid == -1 )
@@ -43,12 +45,12 @@ int fallback( int argc, char** argv )
     if ( pid )
     {
         // parent-side
-        //int exit_code = 0;
+        // int exit_code = 0;
         siginfo_t siginfo = { 0 };
         waitid( P_PID, pid, &siginfo, WEXITED );
-        //waitpid( pid, &exit_code, 0 );
-        printf("\nUNCLASSIFIED\n");
-        //return exit_code;
+        // waitpid( pid, &exit_code, 0 );
+        printf( "\nUNCLASSIFIED\n" );
+        // return exit_code;
         return siginfo.si_status;
     }
     else
@@ -65,15 +67,17 @@ int main( int argc, char** argv )
     bool forced = false;
 
     int opt;
-    while (( opt = getopt( argc, argv, "f" )) != -1 ) {
-        switch ( opt ) {
-            case 'f':
-                forced = true;
-                break;
-            default:
-                fprintf( stderr, "Unrecognized option '%c'\n", opt );
-                print_usage( argv[0] );
-                exit( 1 );
+    while ( ( opt = getopt( argc, argv, "f" ) ) != -1 )
+    {
+        switch ( opt )
+        {
+        case 'f':
+            forced = true;
+            break;
+        default:
+            fprintf( stderr, "Unrecognized option '%c'\n", opt );
+            print_usage( argv[0] );
+            exit( 1 );
         }
     }
 
