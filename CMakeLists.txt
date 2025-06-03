@@ -67,7 +67,7 @@ add_compile_options(
 
 # Security-enhancing flags
 add_compile_options(
-    "--stack-protector-strong"
+    "-fstack-protector-strong"
     "-fcf-protection=full"
 )
 add_link_options(

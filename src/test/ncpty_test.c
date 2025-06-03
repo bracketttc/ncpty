@@ -3,10 +3,10 @@
 
 #include "greatest.h"
 #include "ncpty.h"
-#include <sys/resource.h>
-#include <sys/queue.h>
-#include <sys/time.h>
 
+#include <sys/queue.h>
+#include <sys/resource.h>
+#include <sys/time.h>
 
 TEST invalid_status_tests( void )
 {
@@ -30,18 +30,19 @@ TEST invalid_free_test( void )
 }
 
 
-// reduce the limit on the number of concurrent processes for this program, then fork until we hit that limit
+// reduce the limit on the number of concurrent processes for this program, then
+// fork until we hit that limit
 TEST fork_fail_test( void )
 {
     struct rlimit nproc_limit = { 0 };
     getrlimit( RLIMIT_NPROC, &nproc_limit );
 
     struct rlimit nproc_new_limit = nproc_limit;
-    nproc_new_limit.rlim_cur = 10;
+    nproc_new_limit.rlim_cur      = 10;
     setrlimit( RLIMIT_NPROC, &nproc_new_limit );
 
-    char* file = "sleep";
-    char* arg = "100";
+    char*       file    = "sleep";
+    char*       arg     = "100";
     char* const argv[3] = { file, arg, NULL };
 
     // initialize ncurses
@@ -49,11 +50,12 @@ TEST fork_fail_test( void )
 
     LIST_HEAD( listhead, entry ) head = LIST_HEAD_INITIALIZER( head );
 
-    struct entry {
+    struct entry
+    {
         LIST_ENTRY( entry ) entries;
 
-        WINDOW* win;
-        PANEL* panel;
+        WINDOW*         win;
+        PANEL*          panel;
         struct ncpty_t* pty;
     };
 
@@ -64,13 +66,13 @@ TEST fork_fail_test( void )
     // allocate new pseudoterminals until we run out
     while ( true )
     {
-        struct entry* node = (struct entry*)malloc( sizeof(struct entry) );
+        struct entry* node = (struct entry*)malloc( sizeof( struct entry ) );
         if ( !node )
         {
             ASSERT( false );
             break;
         }
-        memset( node, 0, sizeof(struct entry) );
+        memset( node, 0, sizeof( struct entry ) );
 
         LIST_INSERT_HEAD( &head, node, entries );
 
@@ -134,7 +136,7 @@ TEST fork_fail_test( void )
 // spawn pseudoterminals and fork until we run out of available ptys
 TEST resource_starvation_test( void )
 {
-    char* file = "true";
+    char*       file    = "true";
     char* const argv[2] = { file, NULL };
 
     // initialize ncurses
@@ -150,11 +152,12 @@ TEST resource_starvation_test( void )
 
     LIST_HEAD( listhead, entry ) head = LIST_HEAD_INITIALIZER( head );
 
-    struct entry {
+    struct entry
+    {
         LIST_ENTRY( entry ) entries;
 
-        WINDOW* win;
-        PANEL* panel;
+        WINDOW*         win;
+        PANEL*          panel;
         struct ncpty_t* pty;
     };
 
@@ -165,13 +168,13 @@ TEST resource_starvation_test( void )
     // allocate new pseudoterminals until we run out
     while ( true )
     {
-        struct entry* node = (struct entry*)malloc( sizeof(struct entry) );
+        struct entry* node = (struct entry*)malloc( sizeof( struct entry ) );
         if ( !node )
         {
             ASSERT( false );
             break;
         }
-        memset( node, 0, sizeof(struct entry) );
+        memset( node, 0, sizeof( struct entry ) );
 
         LIST_INSERT_HEAD( &head, node, entries );
 
@@ -243,7 +246,7 @@ int main( int argc, char** argv )
         RUN_TEST( invalid_free_test );
         RUN_TEST( invalid_status_tests );
         RUN_TEST( resource_starvation_test );
-        } );
+    } );
 
     GREATEST_PRINT_REPORT();
     ncpty_exit( greatest_all_passed() ? EXIT_SUCCESS : EXIT_FAILURE );

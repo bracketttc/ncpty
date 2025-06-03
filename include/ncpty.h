@@ -62,7 +62,8 @@ bool ncpty_status( struct ncpty_t* pty, int* exit_code );
 
 /// @brief Exit program
 ///
-/// Convenience function. Uses @c exit_curses if built with ncurses 6.2.20191214 or later.
+/// Convenience function. Uses @c exit_curses if built with ncurses 6.2.20191214
+/// or later.
 /// @param[in] exit_code
 void ncpty_exit( int exit_code );
 

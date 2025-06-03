@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/ioctl.h>
+#include <sys/stat.h>
 #include <sys/wait.h>
 #include <termios.h>
 #include <unistd.h>
@@ -103,10 +104,39 @@ int ncpty_execvp( struct ncpty_t* pty, const char* file, char* const argv[] )
     }
 
     // open child side file descriptor of pseudoterminal
-    int fd_child = open( ptsname( pty->fd ), O_RDWR );
+    const char* path         = ptsname( pty->fd );
+    struct stat initial_stat = { 0 };
+    if ( lstat( path, &initial_stat ) < 0 )
+    {
+        fprintf( stderr, "error: lstat failed on child pty\n" );
+        pty->fd = -1;
+        return -1;
+    }
+
+    int fd_child = open( path, O_RDWR );
     if ( fd_child < 0 )
     {
         fprintf( stderr, "error: Unable to open child pty\n" );
+        close( pty->fd );
+        pty->fd = -1;
+        return -1;
+    }
+
+    struct stat final_stat = { 0 };
+    if ( fstat( fd_child, &final_stat ) < 0 )
+    {
+        fprintf( stderr, "error: fstat failed on child pty\n" );
+        close( fd_child );
+        close( pty->fd );
+        pty->fd = -1;
+        return -1;
+    }
+
+    if ( initial_stat.st_dev != final_stat.st_dev
+         || initial_stat.st_ino != final_stat.st_ino )
+    {
+        fprintf( stderr, "error: child pty does not match initial\n" );
+        close( fd_child );
         close( pty->fd );
         pty->fd = -1;
         return -1;
@@ -195,7 +225,7 @@ bool ncpty_status( struct ncpty_t* pty, int* exit_code )
 
 void ncpty_exit( int exit_code )
 {
-#if defined(NCURSES_VERSION_PATCH) && NCURSES_VERSION_PATCH >= 20191214
+#if defined( NCURSES_VERSION_PATCH ) && NCURSES_VERSION_PATCH >= 20191214
     exit_curses( exit_code );
 #else
     exit( exit_code );
