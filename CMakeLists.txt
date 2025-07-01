@@ -153,6 +153,7 @@ install( FILES
     ${CMAKE_CURRENT_BINARY_DIR}/ncptyConfig.cmake
     ${CMAKE_CURRENT_BINARY_DIR}/ncptyConfigVersion.cmake
     DESTINATION lib/cmake/ncpty
+    COMPONENT devel
     )
 
 option( BUILD_DOCUMENTATION "Generate Doxygen documentation" ON )
