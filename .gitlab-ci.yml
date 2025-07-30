@@ -1,6 +1,6 @@
 # Copyright (c) 2020 Timothy Brackett
 # Licensed under the MIT license
-
+---
 before_script:
     - apt-get update
     - apt-get install -y cmake cmake-data curl libncurses-dev libvterm-dev doxygen graphviz tmux valgrind
@@ -9,7 +9,7 @@ include:
     - template: SAST.gitlab-ci.yml
 
 format:
-  image: gcc:latest
+  image: quay.io/lib/gcc:latest
   stage: build
 
   before_script:
@@ -19,7 +19,7 @@ format:
     - make check_format
 
 build:
-    image: gcc:latest
+    image: quay.io/lib/gcc:latest
     stage: build
 
     script:
@@ -36,7 +36,7 @@ semgrep-sast:
     - "true"
 
 build_test:
-    image: gcc:latest
+    image: quay.io/lib/gcc:latest
     stage: test
 
     script:
@@ -63,7 +63,7 @@ build_test:
           path: coverage.xml
 
 memcheck:
-    image: gcc:latest
+    image: quay.io/lib/gcc:latest
     stage: test
     when: manual
     script:
@@ -82,18 +82,17 @@ memcheck:
 
 coverity-image:
     image:
-        name: gcr.io/kaniko-project/executor:debug
-        entrypoint: [""]
+        name: quay.io/podman/stable:latest
     stage: build
     when: manual
     before_script:
         - 'true'
     script:
-        - /kaniko/executor
-          --context "${CI_PROJECT_DIR}/.coverity"
-          --dockerfile "${CI_PROJECT_DIR}/.coverity/Dockerfile"
+        - podman build "${CI_PROJECT_DIR}/.coverity"
+          --file "${CI_PROJECT_DIR}/.coverity/Dockerfile"
           --build-arg "COVERITY_TOKEN=${COVERITY_TOKEN}"
-          --destination "registry.gitlab.com/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}/coverity:latest"
+          --tag "registry.gitlab.com/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}/coverity:latest"
+        - podman push "registry.gitlab.com/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}/coverity:latest"
 
 coverity:
     image: registry.gitlab.com/bracketttc/ncpty/coverity:latest
