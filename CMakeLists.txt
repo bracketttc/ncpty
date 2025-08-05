@@ -47,7 +47,30 @@ if( USE_INTERNAL_NCURSES_BUILD )
         URL_HASH SHA256=30306e0c76e0f9f1f0de987cf1c82a5c21e1ce6568b9227f7da5b71cbea86c9d
         SOURCE_DIR ${CMAKE_SOURCE_DIR}/deps/ncurses
         INSTALL_DIR ${CMAKE_BINARY_DIR}/ncurses
-        CONFIGURE_COMMAND ${CMAKE_SOURCE_DIR}/deps/ncurses/configure --prefix=<INSTALL_DIR> --disable-leaks --with-shared --disable-pc-files --disable-rpath --enable-echo --disable-stripping --enable-const --without-ada --without-tests --without-progs --enable-symlinks --disable-termcap --with-default-terminfo-dir=/etc/terminfo --with-terminfo-dirs=/etc/terminfo:/lib/terminfo:/usr/share/terminfo --with-ticlib=tic --with-termlib-tinfo --with-versioned-syms --disable-wattr-macros --disable-relink --enable-overwrite --with-xterm-kbs=del
+        CONFIGURE_COMMAND ${CMAKE_SOURCE_DIR}/deps/ncurses/configure
+            --disable-leaks
+            --disable-pc-files
+            --disable-relink
+            --disable-rpath
+            --disable-stripping
+            --disable-termcap
+            --disable-wattr-macros
+            --enable-const
+            --enable-echo
+            --enable-overwrite
+            --enable-symlinks
+            --prefix=<INSTALL_DIR>
+            --with-default-terminfo-dir=/etc/terminfo
+            --with-shared
+            --with-terminfo-dirs=/etc/terminfo:/lib/terminfo:/usr/share/terminfo
+            --with-termlib-tinfo
+            --with-ticlib=tic
+            --with-versioned-syms
+            --with-xterm-kbs=del
+            --without-ada
+            --without-cxx-binding
+            --without-progs
+            --without-tests
         )
     set( CURSES_CURSES_LIBRARY ${CMAKE_BINARY_DIR}/ncurses/lib/libcurses.so CACHE PATH "" FORCE )
     set( CURSES_FORM_LIBRARY ${CMAKE_BINARY_DIR}/ncurses/lib/libform.so CACHE PATH "" FORCE )
@@ -130,6 +153,7 @@ install( FILES
     ${CMAKE_CURRENT_BINARY_DIR}/ncptyConfig.cmake
     ${CMAKE_CURRENT_BINARY_DIR}/ncptyConfigVersion.cmake
     DESTINATION lib/cmake/ncpty
+    COMPONENT devel
     )
 
 option( BUILD_DOCUMENTATION "Generate Doxygen documentation" ON )
